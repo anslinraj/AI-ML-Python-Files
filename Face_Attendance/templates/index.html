@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Smart Attendance</title>
+
+    <style>
+        /* 🔄 RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
+
+        /* 🌌 BACKGROUND */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        /* 🧱 CONTAINER */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.3rem;
+            letter-spacing: 1px;
+        }
+
+        /* 📷 VIDEO */
+        .video-box {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 4px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .video-box:hover {
+            transform: scale(1.02);
+        }
+
+        .video-box img {
+            width: 100%;
+            display: block;
+        }
+
+        /* 🔘 BUTTONS */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: #fff;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            box-shadow: 0 8px 20px rgba(0,114,255,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,114,255,0.6);
+        }
+
+        .btn.danger {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            box-shadow: 0 8px 20px rgba(255,75,43,0.4);
+        }
+
+        .btn.danger:hover {
+            box-shadow: 0 12px 25px rgba(255,75,43,0.7);
+        }
+
+        /* ✨ ANIMATION */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 📱 RESPONSIVE */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🤖 MARK ME</h1>
+
+    <div class="video-box">
+        <img src="{{ url_for('video') }}">
+    </div>
+
+    <div class="buttons">
+        <button class="btn" onclick="goAttendance()">📋 View Attendance</button>
+        <button class="btn danger" onclick="resetAttendance()">🔄 Reset Attendance</button>
+    </div>
+</div>
+
+<script>
+    function goAttendance() {
+        window.location.href = "/attendance";
+    }
+
+    function resetAttendance() {
+        if (confirm("⚠ Are you sure you want to clear attendance?")) {
+            fetch("/reset")
+                .then(res => res.text())
+                .then(msg => alert(msg))
+                .catch(() => alert("❌ Reset failed"));
+        }
+    }
+</script>
+
+</body>
+</html>
