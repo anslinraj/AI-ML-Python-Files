@@ -1,0 +1,6 @@
+Flask
+flask-cors
+SpeechRecognition
+pyttsx3
+pydub
+gunicorn
